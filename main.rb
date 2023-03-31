@@ -25,5 +25,5 @@ machine.insert_coins([0.5, 1])
 puts machine.purchase(item2) # Purchased item: Chips. Your credit: 0.5
 
 machine.insert_coins([5])
-puts machine.purchase(item3) # Purchased item: Candy. Your credit: 4.0
-puts machine.return_change  # {2=>2, 1=>0, 0.5=>0, 0.25=>0}
+puts machine.purchase(item3) # Purchased item: Candy. Your credit: 4.5
+puts machine.return_change  # { 3 => 1, 1 => 1, 0.5 => 1 }
