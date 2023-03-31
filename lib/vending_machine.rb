@@ -2,13 +2,11 @@
 
 require_relative 'inventory_manager'
 require_relative 'credit_manager'
-require_relative 'change_calculator'
 
 class VendingMachine
   def initialize
     @inventory_manager = InventoryManager.new
     @credit_manager = CreditManager.new
-    @change_calculator = ChangeCalculator.new(@credit_manager)
   end
 
   def stock_item(item, quantity)
@@ -32,10 +30,9 @@ class VendingMachine
   end
 
   def return_change
-    change = @change_calculator.calculate_change
+    change = @credit_manager.return_change
     raise 'Not enough change in the machine' if change.nil?
 
-    @change_calculator.update_coins_after_returning_change
     change
   end
 end
