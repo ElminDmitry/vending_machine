@@ -26,7 +26,7 @@ RSpec.describe VendingMachine do
     end
 
     it 'purchases an item and updates user credit' do
-      expect(machine.purchase(item)).to eq('Purchased item: Soda. Your credit: 1.0')
+      expect(machine.purchase(item)).to eq('Purchased item: Soda. Your credit: 1')
     end
   end
 
@@ -38,7 +38,7 @@ RSpec.describe VendingMachine do
     end
 
     it 'returns change and resets user credit' do
-      expect(machine.return_change).to eq({ 1 => 2 })
+      expect(machine.return_change).to eq({ 2 => 1 })
     end
   end
 end

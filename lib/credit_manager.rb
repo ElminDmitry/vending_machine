@@ -2,10 +2,11 @@
 
 require_relative '../lib/change_calculator'
 class CreditManager
-  attr_reader :coins
+  attr_reader :budget
 
   def initialize(change_calculator = ChangeCalculator)
-    @coins = { 0.25 => 0, 0.5 => 0, 1 => 0, 2 => 0, 3 => 0, 5 => 0 }
+    @coins = { 0.25 => 5, 0.5 => 5, 1 => 5, 2 => 5, 3 => 5, 5 => 5 } # default change
+    @budget = 0
     @change_calculator = change_calculator
   end
 
@@ -13,30 +14,34 @@ class CreditManager
     inserted_coins.each do |coin|
       raise "Invalid coin: #{coin}" unless @coins.key?(coin)
 
+      @budget += coin
       @coins[coin] += 1
     end
   end
 
-  def user_credit
-    @coins.sum { |coin, count| coin * count }
-  end
-
   def calculate_required_amount(item)
-    item.price - user_credit
+    item.price - @budget
   end
 
   def debit(amount)
     change = @change_calculator.calculate_change(@coins, amount)
     raise 'Not enough change in the machine' if change.nil?
 
-    @change_calculator.update_coins(@coins, change)
+    @budget -= amount
   end
 
   def return_change
-    change = @change_calculator.calculate_change(@coins, user_credit)
+    change = @change_calculator.calculate_change(@coins, @budget)
     raise 'Not enough change in the machine' if change.nil?
 
-    @change_calculator.update_coins(@coins, change)
+    update_coins(change)
+    @budget = 0
     change
+  end
+
+  private
+
+  def update_coins(change)
+    change.each { |coin, count| @coins[coin] -= count }
   end
 end

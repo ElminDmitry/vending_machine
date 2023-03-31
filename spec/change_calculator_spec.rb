@@ -12,12 +12,4 @@ RSpec.describe ChangeCalculator do
       expect(change).to eq({ 5 => 2, 1 => 1, 0.5 => 1 })
     end
   end
-
-  describe '.update_coins' do
-    it 'updates the coins after returning change' do
-      change = { 5 => 1, 3 => 2, 0.5 => 1 }
-      change_calculator.update_coins(coins, change)
-      expect(coins).to eq({ 5 => 1, 3 => 1, 2 => 3, 1 => 2, 0.5 => 1, 0.25 => 2 })
-    end
-  end
 end

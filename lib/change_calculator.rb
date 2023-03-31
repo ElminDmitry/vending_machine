@@ -19,8 +19,4 @@ class ChangeCalculator
 
     remaining_change.zero? ? change : nil
   end
-
-  def self.update_coins(coins, change)
-    change.each { |coin, count| coins[coin] -= count }
-  end
 end

@@ -26,7 +26,7 @@ class VendingMachine
     @credit_manager.debit(item.price)
     @inventory_manager.decrement_item(item)
 
-    "Purchased item: #{item.name}. Your credit: #{@credit_manager.user_credit}"
+    "Purchased item: #{item.name}. Your credit: #{@credit_manager.budget}"
   end
 
   def return_change
